@@ -124,7 +124,7 @@ $> pix-cli svc:run <micro svc name> --branch <feature branch name>
 Example :
 
 ```bash
-pix svc:run ms1 --branch my-feature
+pix svc:run ms1 --branch my-feature --deps ms3
 INFO: Running feature branch: my-feature for Service: ms1
 /vagrant/ms1/Dockerfile
 /vagrant/ms1
@@ -137,7 +137,8 @@ The CLI will run the command :
 
 ```
 docker service create --name my-feature-ms1 \
-        -e MS_URL=http://new-branch-ms2.pix.lab  \
+        -e MS_URL=http://my-feature-ms3.pix.lab  \
+        -e RACK_ENV=production \
         --network apps \
         --network proxy \
         --label com.df.notify=true \
@@ -175,6 +176,83 @@ Hello, world. I'm NOK"
 $> curl -sv http://my-feature-ms2.pix.lab
 ```
 
+### Working example with Microservices MS1, MS2 and MS3
+
+Rules :
+- MS1 and MS2 depends on MS3
+
+#### Build and Run MS3
+
+```bash
+# build
+$> pix-cli svc:build ms3 --branch my-feature
+
+# run
+$> pix-cli svc:run ms3 --branch my-feature --deps none
+
+# Test
+$> curl my-feature-ms3.pix.lab
+Hello, world.
+```
+
+
+#### Build and Run MS1 and MS2
+
+```bash
+# build
+$> pix-cli svc:build ms1 --branch my-feature
+$> pix-cli svc:build ms2 --branch my-feature
+
+# run
+$> pix-cli svc:run ms1 --branch my-feature --deps ms3
+$> pix-cli svc:run ms2 --branch my-feature --deps ms3
+```
+
+#### Check
+
+```bash
+$> curl -v my-feature-ms1.pix.lab
+
+* Rebuilt URL to: my-feature-ms1.pix.lab/
+*   Trying 10.0.40.10...
+* Connected to my-feature-ms1.pix.lab (10.0.40.10) port 80 (#0)
+> GET / HTTP/1.1
+> Host: my-feature-ms1.pix.lab
+> User-Agent: curl/7.47.0
+> Accept: */*
+>
+< HTTP/1.1 200 OK
+< Content-Type: text/html;charset=utf-8
+< X-XSS-Protection: 1; mode=block
+< X-Content-Type-Options: nosniff
+< X-Frame-Options: SAMEORIGIN
+< Content-Length: 21
+<
+Hello, world. I'm OK
+
+```
+
+```bash
+$> curl -v my-feature-ms2.pix.lab
+
+* Rebuilt URL to: my-feature-ms2.pix.lab/
+*   Trying 10.0.40.10...
+* Connected to my-feature-ms2.pix.lab (10.0.40.10) port 80 (#0)
+> GET / HTTP/1.1
+> Host: my-feature-ms2.pix.lab
+> User-Agent: curl/7.47.0
+> Accept: */*
+>
+< HTTP/1.1 200 OK
+< Content-Type: text/html;charset=utf-8
+< X-XSS-Protection: 1; mode=block
+< X-Content-Type-Options: nosniff
+< X-Frame-Options: SAMEORIGIN
+< Content-Length: 21
+<
+
+Hello, world. I'm OK
+```
 
 # Todo :
 - Adding configuration files for each service
