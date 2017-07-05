@@ -6,6 +6,26 @@
 - Docker Flow (reverse proxy)
 - DNSMasq
 
+## Project structure :
+
+```
+.
+├── README.md
+├── Vagrantfile
+├── dnsmasq.pix.lab.conf
+├── ms1                                     => Micro Service 1
+├── ms2                                     => Micro Service 2
+├── ms3
+├── pix-cli                                 => Python Helper form Building and Running the Micro Services
+├── resolv.dnsmasq.conf
+├── scripts                                 => Provisionning scripts
+│   ├── dnsmasq.sh
+│   ├── docker.sh
+│   ├── manager.sh
+│   ├── node.sh
+│   └── python.sh
+```
+
 ## Getting Started :
 
 ```bash
@@ -146,7 +166,7 @@ curl -sv http://my-feature-ms1.pix.lab
 > Accept: */*
 >
 
-Hello, world. I'm OK"
+Hello, world. I'm NOK"
 ```
 
 - ms2 :

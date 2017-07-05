@@ -70,25 +70,20 @@ class Hello(Module):
         print self.Name
         print self.ServiceDomain
 
-        runCmd = """
-/usr/bin/sudo docker service create --name %s \
-    -e RACK_ENV=production \
-     -e MS_URL=http://%s-ms%s.pix.lab \
-    --network apps \
-    --network proxy \
-    --label com.df.notify=true \
-    --label com.df.distribute=true \
-    --label com.df.servicePath=\/  \
-    --label com.df.serviceDomain=%s \ 
-    --label com.df.port=3000\
-    %s
-""" % (self.Name,  self.branch, self.ID, self.ServiceDomain, self.Tag)
-
-        print runCmd
+        msUrl = "MS_URL=http://%s-ms%s.pix.lab" % (self.branch, self.ID)
 
         try:
             #TODO: should asj for sudo
-            exec(runCmd)
+            execl("/usr/bin/sudo", "", "docker", "service", "create", "--name", self.Name, 
+            "-e" , "RACK_ENV=production", 
+            "-e", msUrl,
+             "--network", "apps", 
+             "--network", "proxy", 
+             "--label", "com.df.notify=true", 
+             "--label", "com.df.distribute=true", 
+             "--label", "com.df.serviceDomain=%s" % self.ServiceDomain, 
+             "--label", "com.df.port=3000",
+              self.Tag)
         except Exception as e:
                 raise SystemExit("Exepction: %s" % e)
         else:
