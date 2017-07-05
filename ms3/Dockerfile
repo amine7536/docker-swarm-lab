@@ -6,4 +6,4 @@ RUN bundle install --without development test
 COPY . .
 
 EXPOSE 3000
-CMD ["bundle", "exec", "ruby", "web.rb", "-s", "Puma", "-p $PORT"]
+CMD ["bundle", "exec", "ruby", "web.rb", "-s", "Puma", "-p", "3000"]
