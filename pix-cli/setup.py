@@ -32,8 +32,7 @@ class RunTests(Command):
         raise SystemExit(errno)
 
 requirements = [
-    'docopt',
-    'pymongo'
+    'docopt'
 ]
 
 test_requirements = [
@@ -71,7 +70,7 @@ setup(
     },
     entry_points={
         'console_scripts': [
-            'pix=pix.main:main',
+            'pix-cli=pix.main:main',
         ],
     },
     tests_require=test_requirements,

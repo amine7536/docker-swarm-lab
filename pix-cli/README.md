@@ -1,1 +1,1 @@
-# diva-cli
+# pix-cli

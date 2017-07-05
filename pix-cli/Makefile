@@ -32,7 +32,7 @@ clean-test:
 	rm -fr htmlcov/
 
 lint:
-	flake8 diva tests
+	flake8 pix tests
 
 test:
 	python setup.py test
@@ -41,15 +41,15 @@ test-all:
 	tox
 
 coverage:
-	coverage run --source diva setup.py test
+	coverage run --source pix setup.py test
 	coverage report -m
 	coverage html
 	open htmlcov/index.html
 
 docs:
-	rm -f docs/diva.rst
+	rm -f docs/pix.rst
 	rm -f docs/modules.rst
-	sphinx-apidoc -o docs/ diva
+	sphinx-apidoc -o docs/ pix
 
 release: clean
 	python setup.py sdist upload

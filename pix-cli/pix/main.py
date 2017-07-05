@@ -2,7 +2,7 @@
 
 """
 Usage:
-    pix <module> [options] [<svc>] [<attributes>...]
+    pix-cli <module> [options] [<svc_name>] [<attributes>...]
 
 Options:
     -h --help               Show this screen.
@@ -11,7 +11,7 @@ Options:
     --branch=<svc_branch>    Service Branch
 
 Examples:
-    pix svc:push MySvcName --branch my-feature
+    pix-cli services:build MySvcName --branch my-feature
 
 Help:
     For help using this tool, please open an issue on the Github repository:
@@ -28,7 +28,6 @@ from . import __version__
 def main():
     """
     Main CLI
-    :return:
     """
     import modules
     arguments = docopt(__doc__, version=__version__)

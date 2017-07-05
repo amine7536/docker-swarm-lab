@@ -1,3 +1,4 @@
+sudo systemctl stop apparmor
 sudo apt-get -y remove docker docker-engine docker.io
 sudo apt-get update
 sudo apt-get -y install apt-transport-https ca-certificates curl software-properties-common

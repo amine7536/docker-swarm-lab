@@ -9,3 +9,6 @@ sudo apt-get install -y git
 sudo pip install virtualenv
 sudo pip install fabric
 sudo pip install jinja2
+
+# Install Pix-Cli to manage services
+cd /vagrant/pix-cli && pip install -e .[test]

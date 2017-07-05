@@ -34,6 +34,9 @@ Vagrant.configure("2") do |config|
     manager.vm.provision "shell", path: "./scripts/docker.sh"
     manager.vm.provision "shell", path: "./scripts/manager.sh"
     manager.vm.provision "shell", path: "./scripts/python.sh"
+    
+    # Disabled causes the VM to Freeze ??.
+    # manager.vm.provision "shell", path: "./scripts/dnsmasq.sh"
 
   end
   
@@ -56,7 +59,9 @@ Vagrant.configure("2") do |config|
     worker1.hostmanager.aliases = "worker1"
 
     worker1.vm.provision "shell", path: "./scripts/docker.sh"
-    # worker1.vm.provision "shell", path: "./scripts/dnsmasq.sh"
+    worker1.vm.provision "shell", path: "./scripts/node.sh"
+    worker1.vm.provision "shell", path: "./scripts/dnsmasq.sh"
+    worker1.vm.provision "shell", path: "./scripts/python.sh"
 
   end
 
