@@ -9,6 +9,7 @@ Options:
     -v                      Show Debug
     --version               Show version.
     --branch=<svc_branch>    Service Branch
+    --deps=<svc_deps>    Service Dependecies
 
 Examples:
     pix-cli services:build MySvcName --branch my-feature

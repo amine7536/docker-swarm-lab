@@ -2,7 +2,7 @@
 
 from json import dumps
 from .base import Module
-from .utils import logger
+from .utils import logger, read_json_file
 from os import path, environ, chdir, getcwd, execle, execl
 from .utils.decorators import register_action
 from .base import Module, ModuleRuntimeError
@@ -21,20 +21,22 @@ class Hello(Module):
         self.options = options
         self.svc = self.options.get('<svc_name>')
         self.branch = self.options.get('--branch')
+        self.deps = self.options.get('--deps')
         
         self.Dockerfile = "/vagrant/%s/Dockerfile" % self.svc
+        self.Configfile = "/vagrant/%s/config.json" % self.svc
         self.Repo ="/vagrant/%s" % self.svc
         self.Tag ="%s-%s" % (self.svc, self.branch)
         self.Name = "%s-%s" % (self.branch, self.svc)
         self.ServiceDomain = "%s.pix.lab" % self.Name
         self.ID = 1
         
+        # Cheating - should be in a configuration file
+        # Dependencies between Services should be in ETCD or CONSUL
         if self.svc == "ms1":
             self.ID = 2
         # Cheating - should be in a configuration file
         # Dependencies between Services should be in ETCD or CONSUL
-         
-
 
     @register_action('build')
     def build_svc(self):
@@ -70,7 +72,10 @@ class Hello(Module):
         print self.Name
         print self.ServiceDomain
 
-        msUrl = "MS_URL=http://%s-ms%s.pix.lab" % (self.branch, self.ID)
+        if  not self.deps:
+            raise ModuleRuntimeError("Please specify service dependecies with --deps")
+        else:
+            msUrl = "MS_URL=http://%s-%s.pix.lab" % (self.branch, self.deps)
 
         try:
             #TODO: should asj for sudo
