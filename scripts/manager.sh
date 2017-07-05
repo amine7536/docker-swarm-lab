@@ -27,5 +27,4 @@ docker service create --name proxy \
 vfarcic/docker-flow-proxy
 
 # Use DNSMasq on worker1 as DNS
-sudo apt-get -y remove resolvconf
 sudo cp /vagrant/resolv.dnsmasq.conf /etc/resolv.conf
