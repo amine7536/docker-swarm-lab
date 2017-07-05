@@ -38,7 +38,7 @@ accgl5jfp3yf        ingress             overlay             swarm
 ```
 
 - *Manager* IP : 10.0.40.10
-- *Worder* IP : 10.0.40.101
+- *Worker* IP : 10.0.40.101
 
   
 ### Overview 
