@@ -1,0 +1,21 @@
+exclude .gitignore
+exclude .coverage
+exclude .travis.yml
+
+include AUTHORS.rst
+include CONTRIBUTING.rst
+include HISTORY.rst
+include LICENSE
+include README.rstinclude setup.cfg
+
+prune .cache
+prune .git
+prune build
+prune dist
+
+recursive-include tests *
+recursive-exclude *.egg-info *
+recursive-exclude * __pycache__
+recursive-exclude * *.py[co]
+
+recursive-include docs *.rst conf.py Makefile make.bat

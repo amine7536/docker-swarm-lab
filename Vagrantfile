@@ -31,9 +31,10 @@ Vagrant.configure("2") do |config|
     manager.vm.network :private_network, ip: "10.0.40.10"
     manager.hostmanager.aliases = "manager"
     
-    manager.vm.provision "shell", path: "./provision/docker.sh"
-    manager.vm.provision "shell", path: "./provision/manager.sh"
-      
+    manager.vm.provision "shell", path: "./scripts/docker.sh"
+    manager.vm.provision "shell", path: "./scripts/manager.sh"
+    manager.vm.provision "shell", path: "./scripts/python.sh"
+
   end
   
   # Swarm Worker
@@ -54,7 +55,8 @@ Vagrant.configure("2") do |config|
     worker1.vm.network "private_network", ip: "10.0.40.101"
     worker1.hostmanager.aliases = "worker1"
 
-    worker1.vm.provision "shell", path: "./provision/docker.sh"    
+    worker1.vm.provision "shell", path: "./scripts/docker.sh"
+    # worker1.vm.provision "shell", path: "./scripts/dnsmasq.sh"
 
   end
 

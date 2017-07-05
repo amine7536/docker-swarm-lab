@@ -1,6 +1,3 @@
-.vagrant
-swarm.token
-*.log
 *.pyc
 .cache
 .coverage

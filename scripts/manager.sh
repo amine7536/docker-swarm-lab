@@ -1,6 +1,3 @@
-# Install DNSMASQ
-sudo apt-get -y install dnsmasq
-cp /vagrant/dnsmasq.pix.lab.conf /etc/dnsmasq.d/.
 
 # Init Swarm
 sudo docker swarm init --advertise-addr 10.0.40.10:2377 | grep SWMTKN | awk '{print $5}' > /vagrant/swarm.token
